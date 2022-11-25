@@ -1,0 +1,8 @@
+.profile{
+  width: 50px;
+}
+.profile > img{
+  max-width: 100%;
+  border-radius: 2px;
+
+}

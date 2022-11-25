@@ -1,0 +1,10 @@
+.status ul > li{
+  list-style: none;
+  width: 50%;
+  text-align: center;
+}
+.status ul{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

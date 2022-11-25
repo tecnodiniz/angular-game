@@ -1,0 +1,12 @@
+<select name="select-sec"
+        id="select-sec"
+        [(ngModel)] = "selectedOption">
+  <option value="10" selected>10</option>
+  <option value="20">20</option>
+  <option value="30">30</option>
+</select>
+
+<button (click)="emiteValue(selectedOption)" [disabled]="selected">iniciar</button>
+
+
+

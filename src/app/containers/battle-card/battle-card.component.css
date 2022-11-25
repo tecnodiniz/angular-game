@@ -1,0 +1,80 @@
+
+.header{
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem;
+}
+.header > button{
+  padding: 1rem;
+  width: 200px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.battle-card{
+  width: 400px;
+  border: 1px solid grey;
+  margin: 10px;
+  margin: 0 auto;
+  margin-top: 10rem;
+}
+.title{
+  text-align: center;
+}
+.card{
+  margin-bottom: 5px;
+}
+.profile_opponent{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 5px;
+}
+.profile_player{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.card__info{
+  padding: 10px;
+}
+.card__opponent{
+  text-align: end;
+}
+.name{
+  margin: 2px;
+}
+.actions{
+  display: flex;
+  flex-wrap: wrap;
+}
+.actions > button{
+  width: 48%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.skills{
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+  border:1px solid;
+  padding: 5px;
+  height: 50px;
+}
+.skills > button{
+  width: 48%;
+  margin: 0 auto;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.skills > button:hover{
+  color: blue;
+
+}

@@ -1,0 +1,6 @@
+
+.bar{
+  height: 5px;
+  background-color: blue;
+  transition: width  ease;
+}
