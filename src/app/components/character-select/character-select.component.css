@@ -1,0 +1,20 @@
+.characters-painel{
+  width: 980px;
+  margin: 0 auto;
+  border: solid 1px;
+}
+.characters > ul{
+  display: flex;
+  flex-direction: row;
+}
+.characters > ul > li
+{
+  list-style: none;
+  width: 50px;
+  cursor: pointer;
+  margin: 5px;
+}
+.characters > ul > li img
+{
+ max-width: 100%;
+}

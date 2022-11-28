@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { CharacterModel } from 'src/app/class/character-model';
 import { EnemiesModel } from 'src/app/class/enemies-model';
 import characters from '../../../assets/data/characters.json'
@@ -10,6 +10,10 @@ import characters from '../../../assets/data/characters.json'
   styleUrls: ['./battle-card.component.css']
 })
 export class BattleCardComponent implements OnInit {
+  @Input()
+  characterId:number = 0;
+  @Input()
+  enemyId:number = 0;
 
   //Character creation
   player1:CharacterModel = new CharacterModel(0,'','',0,0,0,0,[0],[]);
@@ -31,9 +35,10 @@ export class BattleCardComponent implements OnInit {
   player2Life:string = "100%";
 
   //Battle log
-  battleLog:string = 'Battle log';
+  battleLog:string = 'Starting...';
 
   //On click start
+  initGame:boolean = false;
   start:boolean = false;
   countdown:string = "";
   //Process Battle
@@ -41,18 +46,22 @@ export class BattleCardComponent implements OnInit {
   //Start
   startGame(){
     this.start = true;
+    this.initGame = true;
     this.startingGame(3);
+
     //reset
     this.player1Life = "100%"
     this.player2Life = "100%";
-
-    this.player1.reseteActions();
+    this.turn = 1;
 
     this.gameover = false;
 
     this.finishAction = false;
 
-    this.newTurn(this.sec);
+    setTimeout(() => {
+      this.newTurn(this.sec);
+    }, 4000);
+
   }
   //Next Turn
   newTurn(sec:number){
@@ -190,14 +199,10 @@ export class BattleCardComponent implements OnInit {
     }
 
   }
+  initializing(){
 
-
-constructor() { }
-
-  ngOnInit(): void {
-
-    const character1 = characters.character.find(char => char.id == 1);
-    const character2 = characters.enemies.find(char => char.id == 3);
+    const character1 = characters.character.find(char => char.id == this.characterId);
+    const character2 = characters.enemies.find(char => char.id == this.enemyId);
 
     if(character1){
       this.player1 = new CharacterModel(
@@ -233,6 +238,17 @@ constructor() { }
 
     console.log(this.player2.info());
 
+  }
+  restartGame(){
+    this.battleLog = "Restarting match..."
+    this.initializing();
+    this.startGame();
+  }
+
+constructor() { }
+
+  ngOnInit(): void {
+    this.initializing();
   }
   //actions
   attack(){

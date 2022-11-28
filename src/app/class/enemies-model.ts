@@ -20,6 +20,25 @@ export class EnemiesModel extends CharacterModel{
     this.attacks = this.attacks.map(value => value + 10);
     console.log(this.attacks);
   }
+  override heal(){
+    if(this.getHp() < 100){
+
+      var hp = this.getHp();
+      hp += 30;
+      this.setHp(hp);
+
+      if(this.getHp() > 100){
+        hp = this.getHp();
+        hp -= (hp - 100);
+        this.setHp(hp);
+      }
+    }else{
+      this.enemyMove();
+
+    }
+
+
+  }
   action(id:number){
 
     //getters and setters

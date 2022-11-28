@@ -1,4 +1,33 @@
-<app-battle-card></app-battle-card>
+<div class="character-painel"
+
+*ngIf="!selected">
+
+<h3>Select your Character</h3>
+  <app-character-select
+[characters]="characters"
+(getCharacterId)="getCharacterPlayer($event)"
+></app-character-select>
+
+  <h3>Select Opponent</h3>
+
+  <app-character-select
+  [characters]="enemies"
+  (getCharacterId)="getCharacterEnemy($event)"
+  ></app-character-select>
+
+
+  <h3>{{characterPlayerName}}</h3>
+  <h3>{{characterEnemyName}}</h3>
+  <button *ngIf="bothSelected" (click)="getStart()">Confirm</button>
+
+
+</div>
+
+<app-battle-card
+*ngIf="selected"
+[characterId]="characterId"
+[enemyId]="enemyId"
+></app-battle-card>
 
 
 

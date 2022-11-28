@@ -15,6 +15,8 @@ import { BattleCardComponent } from './containers/battle-card/battle-card.compon
 import { PlayersBarComponent } from './components/players-bar/players-bar.component';
 import {PlayerStatsComponent} from './components/player-stats/player-stats.component';
 import { PlayerProfileComponent } from './components/player-profile/player-profile.component';
+import { CharacterSelectComponent } from './components/character-select/character-select.component';
+import { BattleTestComponent } from './containers/battle-test/battle-test.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { PlayerProfileComponent } from './components/player-profile/player-profi
     BattleCardComponent,
     PlayersBarComponent,
     PlayerStatsComponent,
-    PlayerProfileComponent
+    PlayerProfileComponent,
+    CharacterSelectComponent,
+    BattleTestComponent
   ],
   imports: [
     BrowserModule,

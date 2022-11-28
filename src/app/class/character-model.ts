@@ -54,6 +54,9 @@ export class CharacterModel {
   getHp():number{
     return this.hp;
   }
+  setHp(value:number):void{
+    this.hp = value;
+  }
   getMp():number{
     return this.mp;
   }
@@ -210,11 +213,7 @@ export class CharacterModel {
     if(ability)
     {
       cost = ability.cost;
-
-
     }
-
-
     return cost;
 
   }
@@ -237,7 +236,7 @@ export class CharacterModel {
       this.spd += 1;
       this.mp -= this.getAbilityCost(id);
   }
-  private heal(id:number):void{
+     heal(id:number):void{
       this.hp += 30;
       this.mp -= this.getAbilityCost(id);
 
@@ -253,7 +252,7 @@ export class CharacterModel {
     this.hit = 60;
     this.mp -= 10;
   }
-  private lifeSteal(id:number):void{
+    lifeSteal(id:number):void{
     this.hit = 10;
     this.hp += 15;
     if(this.hp > 100){
@@ -265,7 +264,5 @@ export class CharacterModel {
     this.hit = 40;
     this.mp -= this.getAbilityCost(id);
   }
-
-
 }
 

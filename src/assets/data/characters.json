@@ -14,12 +14,12 @@
     {
       "id":2,
       "name":"Light Knight",
-      "profile":"",
+      "profile":"light-knight.png",
       "hp":100,
       "mp":5,
       "spd":1,
       "basic-atk":30,
-      "abilities":[2]
+      "abilities":[2,6]
     }
   ],
   "enemies":[

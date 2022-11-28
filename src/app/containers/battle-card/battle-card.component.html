@@ -1,5 +1,6 @@
 <div class="header">
-  <button (click)="startGame()">Start</button>
+  <button *ngIf="!initGame" (click)="startGame()">Start</button>
+  <button *ngIf="gameover" (click)="restartGame()">Restart</button>
 
   <div class="countdown"*ngIf="start" >
     <h3>{{countdown}}</h3>
