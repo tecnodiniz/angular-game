@@ -1,15 +1,44 @@
 import { Abilities } from "../interface/abilities";
-import { BattleSettings } from "../interface/battle-settings";
 import { Characters } from "./characters";
-import gameConfig from '../../assets/data/characters.json'
 import { Player } from "./player";
-import { EnemiesModel } from "./enemies-model";
 import { Enemies } from "./enemies";
+
+import gameConfig from '../../assets/data/characters.json'
 
 export class Battle implements Abilities{
 
-  private player:Player = new Characters(0,'','',0,0,0,0,0,[0]);
-  private enemy:Enemies = new Characters(0,'','',0,0,0,0,0,[0]);
+  //Players Settings
+  private player:Player = new Player(0,'','',0,0,0,0,0,[0],[0]);
+  private enemy:Enemies = new Enemies(0,'','',0,0,0,0,0,[0],[0]);
+  private playerHp:number = 0;
+  private enemyHp:number = 0;
+  private playerLifebar:string = "0%";
+  private enemyLifeBar:string = "0%";
+
+  //Battle Settings
+  private timer: number = 0;
+  private timeBar:string = "100%";
+  private turn:number = 0;
+  private gameover:boolean = false;
+  private finishAction:boolean = false;
+  private battleLog:string = "";
+  private criticalLog:string = "";
+  private mpLoad:number = 1;
+
+  private playerLog:string = '...';
+  private enemyLog:string = '...';
+  private playerSpellCard:boolean = false;
+
+  constructor(player:Player,enemy:Enemies,timer:number){
+    this.timer = timer;
+    this.player = player;
+    this.enemy = enemy;
+    this.playerHp = player.getHp();
+    this.enemyHp = enemy.getHp();
+
+    this.enemyLifeBar = this.enemyBar(this.enemy.getHp());
+    this.playerLifebar = this.playerBar(this.player.getHp());
+  }
 
   getPlayer():Player{
     return this.player;
@@ -24,10 +53,337 @@ export class Battle implements Abilities{
   setEnemy(enemy:Enemies):void{
     this.enemy = enemy;
   }
+  getPlayerLifeBar():string{
+    return this.playerLifebar;
+  }
+  setPlayerLifeBar(value:string):void{
+    this.playerLifebar = value;
+  }
+  getEnemyLifeBar():string{
+    return this.enemyLifeBar;
+  }
+  setEnemyLifeBar(value:string):void{
+    this.enemyLifeBar = value;
+  }
 
-  //Interface
+  getTurn():number{
+    return this.turn;
+  }
+  setTurn(turn:number):void{
+    this.turn = turn;
+  }
+  getTimeBar():string{
+    return this.timeBar;
+  }
+  setTimeBar(){}
+
+  getGameOver():boolean{
+    return this.gameover;
+  }
+  getPlayerLog():string{
+    return this.playerLog;
+  }
+  setPlayerLog(log:string):void{
+    this.playerLog = log;
+  }
+  getEnemyLog():string{
+    return this.enemyLog;
+  }
+  setEnemyLog(log:string):void{
+    this.enemyLog = log;
+  }
+  getPlayerSpellCard():boolean{
+    return this.playerSpellCard;
+  }
+  setPlayerSpellCard(value:boolean):void{
+    this.playerSpellCard = value;
+  }
+  getBattleLog():string{
+    return this.battleLog;
+  }
+  setBattleLog(log:string):void{
+    this.battleLog = log;
+  }
+  getCriticalLog():string{
+    return this.criticalLog;
+  }
+  setCriticalLog(value:string):void{
+    this.criticalLog = value;
+  }
+  getFinishAction():boolean{
+    return this.finishAction;
+  }
+  setFinishAction(value:boolean):void{
+    this.finishAction = value;
+  }
+  getMpLoad():number{
+    return this.mpLoad;
+  }
+
+  //Game
+  startGame():void{
+    this.initTurn();
+  }
+
+
+  initTurn():void{
+    let seconds = this.timer * 10;
+    console.log("INIT");
+    this.setTurn(this.getTurn() + 1);
+
+    this.player.setAction(0);
+    this.player.setAbilityId(0);
+    this.player.setDefPoints(0);
+
+    this.playerLifebar = this.playerBar(this.player.getHp());
+    this.enemyLifeBar = this.enemyBar(this.enemy.getHp());
+
+    this.finishAction = false;
+
+    this.checkScore();
+
+    if(!this.gameover){
+      this.setBattleLog("Turn Phase")
+      this.startTimer(seconds)
+    }else
+    this.setBattleLog("Game Over")
+
+  }
+
+  private startTimer(seconds:number):number{
+
+    if(seconds > 0 && !this.getFinishAction()){
+      setTimeout(() => {
+
+        let percent = ((seconds / 10)*100) / this.timer;
+
+        this.timeBar = percent + "%";
+
+        seconds--;
+
+        return this.startTimer(seconds);
+    }, 100);
+  }else{
+    this.processBattle();
+    this.setFinishAction(true);
+
+  }
+
+
+  return seconds;
+  }
+
+  //Enemy Settings
+  enemyAction(value:number):number{
+    switch(value){
+      case 1:
+        this.player.takeDmg(this.enemy.attack());
+        this.displayLog(`${this.enemy.getName()} attcked you`);
+        this.setPlayerLifeBar(this.playerBar(this.player.getHp()));
+
+        break;
+      case 2:
+        console.log("Time to SPELL!")
+        this.enemySpell(this.enemySelectSpell());
+        break;
+    }
+    return this.player.getHp();
+
+  }
+  displayPlayerLog(log:string):void{
+    this.setPlayerLog(log);
+    setTimeout(() => {
+      log = "..."
+      this.setPlayerLog(log);
+
+    }, 3 * 1000);
+  }
+  displayCriticalLog(log:string):void{
+    this.setCriticalLog(log);
+    setTimeout(() => {
+      this.setCriticalLog("");
+
+    }, 3000);
+  }
+  displayLog(log:string):void{
+    this.setEnemyLog(log)
+    setTimeout(() => {
+      log = "...";
+      this.setEnemyLog(log);
+
+    }, 3 * 1000);
+
+  }
+  enemySelectSpell():number{
+    let abilities = this.enemy.getAbilities();
+    let ability = Math.floor(Math.random() * abilities.length);
+    return abilities[ability];
+  }
+
+  playerSpell(value:number):void{
+    switch(value){
+      case 1:
+        this.speedUp(this.player);
+        this.displayPlayerLog(`${this.player.getName()} speed up`);
+        break;
+      case 2:
+        this.heal(this.player,0);
+        this.displayPlayerLog(`${this.player.getName()} healed`);
+
+        break;
+      case 3:
+        this.lifeSteal(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} liched hp`);
+
+        break;
+      case 4:
+        this.attackUp(this.player);
+        this.displayPlayerLog(`${this.player.getName()} attack up`);
+        break;
+      case 5:
+        this.darkBlade(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Dark Blade`);
+        break;
+      case 6:
+        this.fireBall(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Fire Ball`);
+        break;
+      case 7:
+        this.iceStone(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Ice Stone`)
+        break;
+      case 8:
+        this.defenseUp(this.player);
+        this.displayPlayerLog(`${this.player.getName()} Defense Up`);
+        console.log("Player"+this.player.getDef())
+
+        break;
+      case 9:
+        this.airStrike(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Air Strike`);
+        break;
+    }
+  }
+  enemySpell(value:number):void{
+    switch(value){
+      case 1:
+        this.speedUp(this.enemy);
+        this.displayLog(`${this.enemy.getName()} speed up`);
+        break;
+      case 2:
+        this.heal(this.enemy,0);
+        this.displayLog(`${this.enemy.getName()} healed`);
+
+        break;
+      case 3:
+        this.lifeSteal(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} liched hp`);
+
+        break;
+      case 4:
+        this.attackUp(this.enemy);
+        this.displayLog(`${this.enemy.getName()} attack up`);
+        break;
+      case 5:
+        this.darkBlade(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Dark Blade`);
+        break;
+      case 6:
+        this.fireBall(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Fire Ball`);
+        break;
+      case 7:
+        this.iceStone(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Ice Stone`);
+        break;
+      case 8:
+        this.defenseUp(this.enemy);
+        this.displayLog(`${this.enemy.getName()} defense up`);
+        console.log("Enemy "+this.enemy.getDef());
+        break;
+      case 9:
+        this.airStrike(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Air Strike`);
+        break;
+    }
+
+  }
+
+  //Player Settings
+  playerAction(action:number):number{
+    switch(action){
+      case 1:
+        this.enemy.takeDmg(this.player.attack());
+        this.setEnemyLifeBar(this.enemyBar(this.enemy.getHp()));
+        this.displayPlayerLog(`Well Done`)
+        break;
+      case 2:
+        this.playerSpell(this.player.getAbilityId());
+        break;
+      case 3:
+        this.displayPlayerLog(`Blocked ${this.player.getDefPoints()}% damage `)
+        break;
+    }
+    return this.enemy.getHp();
+  }
+  playerAtk():void{
+    this.player.setAction(1);
+    this.setPlayerLog(`Hit oppentent with ${this.player.getAtk()} points`);
+  }
+  playerSelectSpell():void{
+    this.player.setAction(2);
+    this.playerSpellCard = true;
+  }
+  playerBlock():void{
+    this.player.setAction(3);
+    this.player.setDefPoints(10);
+    this.setPlayerLog(`Defending`);
+  }
+  playerSpellClick(id:number,description:string):void{
+    if(this.player.checkMp(id)){
+      this.player.setAbilityId(id);
+      this.setPlayerLog(description);
+      this.setPlayerSpellCard(false);
+    }else
+    this.setPlayerLog("NO MP");
+
+  }
+  endTurn():void{
+    this.setFinishAction(true);
+  }
+
+  //Players Life bar
+  private playerBar(value:number):string{
+    let hp = (value * 100)/this.playerHp;
+    if(hp < 0)
+    hp = 0;
+
+    return hp+'%';
+  }
+  private enemyBar(value:number):string{
+    let hp = (value * 100)/this.enemyHp;
+    if(hp < 0)
+    hp = 0;
+
+    return hp+'%';
+  }
+
+  //Interface Abilities
+
+    speedUp(character: Characters): void {
+      let spd = character.getSpd();
+      let mp = character.getMp();
+
+      const speedUp = gameConfig.abilities.find(ability => ability.id == 1);
+      if(speedUp){
+        character.setMp(mp - speedUp.cost)
+        character.setSpd(spd + 1);
+      }
+    }
+
   heal(character: Characters, healPercent:number | null): void {
     var healPoints:number = 30;
+
     if(healPercent != 0 && healPercent != null)
     healPoints += (healPoints * healPercent) / 100;
 
@@ -35,14 +391,203 @@ export class Battle implements Abilities{
 
     if(heal){
         let life = character.getHp() + healPoints;
-        if(character.getHp() > 100)
-        life = 100;
+
+        let mp = character.getMp();
+        character.setMp(mp - heal.cost);
         character.setHp(life);
+
+        if(character.getHp() > 100)
+          character.setHp(100);
+
     }
   }
-
   lifeSteal(character1: Characters, character2:Characters): void {
-    console.log("life steal");
+    const lifesteal = gameConfig.abilities.find(ability => ability.id == 3);
+    if(lifesteal){
+      let hpChar1 = character1.getHp() + 15;
+      let hpChar2 = character2.getHp() - 15;
+      if(character1.getHp() > 100)
+      hpChar1 = 100;
+
+      let mp = character1.getMp();
+      character1.setMp(mp - lifesteal.cost);
+
+      character1.setHp(hpChar1);
+      character2.setHp(hpChar2);
+    }
+  }
+  attackUp(character: Characters): void {
+    const attackUp = gameConfig.abilities.find(ability => ability.id == 4);
+    if(attackUp){
+      let atk = character.getAtk();
+      let mp = character.getMp();
+      character.setMp(mp - attackUp.cost)
+      character.setAtk(atk + 10);
+    }
+
+  }
+  darkBlade(speller: Characters,taker:Characters): void {
+    let dmg = 60;
+    let mp = speller.getMp();
+    const darkBlade = gameConfig.abilities.find(ability => ability.id == 5);
+
+    if(darkBlade){
+      const weakness = taker.getWeakness().find(ability => ability == darkBlade.id);
+
+      if(weakness){
+        dmg += ((dmg * 50) / 100)
+        this.displayCriticalLog(`${taker.getName()} received critical damage`)
+
+      }
+      speller.setMp(mp - darkBlade.cost);
+
+      taker.takeDmg(dmg);
+    }
+  }
+  fireBall(speller: Characters,taker:Characters): void {
+    let dmg = 40;
+    let mp = speller.getMp();
+
+    const fireBall = gameConfig.abilities.find(ability => ability.id == 6);
+
+    if(fireBall){
+      const weakness = taker.getWeakness().find(ability => ability == fireBall.id);
+
+      if(weakness){
+        dmg += ((dmg * 50) / 100)
+        this.displayCriticalLog(`${taker.getName()} received critical damage`)
+
+      }
+
+
+      speller.setMp(mp - fireBall.cost);
+      taker.takeDmg(dmg);
+    }
+
+  }
+  iceStone(speller: Characters, taker: Characters): void {
+    let dmg = 25;
+    let mp = speller.getMp();
+    const iceStone = gameConfig.abilities.find(ability => ability.id == 7);
+
+    if(iceStone){
+
+      const weakness = taker.getWeakness().find(ability => ability == iceStone.id);
+
+      if(weakness){
+        dmg += ((dmg * 50) / 100)
+        this.displayCriticalLog(`${taker.getName()} received critical damage`)
+
+      }
+
+      speller.setMp(mp - iceStone.cost);
+      taker.takeDmg(dmg);
+      taker.setSpd(taker.getSpd() - 1);
+    }
+
+  }
+  defenseUp(speller: Characters): void {
+    const defenseUp = gameConfig.abilities.find(ability => ability.id == 8);
+    if(defenseUp){
+      let def = speller.getDef();
+      let mp = speller.getMp();
+      speller.setMp(mp - defenseUp.cost)
+      speller.setDef(def + 10);
+    }
+  }
+  airStrike(speller: Characters, taker: Characters): void {
+    let dmg = 40;
+    let mp = speller.getMp();
+
+    const airStrike = gameConfig.abilities.find(ability => ability.id == 9);
+
+    if(airStrike){
+      const weakness = taker.getWeakness().find(ability => ability == airStrike.id);
+
+      if(weakness){
+        dmg += ((dmg * 50) / 100)
+        this.displayCriticalLog(`${taker.getName()} received critical damage`)
+
+      }
+
+      speller.setMp(mp - airStrike.cost);
+      taker.takeDmg(dmg);
+    }
+  }
+  hollyLight(speller: Characters, taker: Characters): void {
+    let dmg = 40;
+    let mp = speller.getMp();
+
+    const hollyLight = gameConfig.abilities.find(ability => ability.id == 10);
+
+    if(hollyLight){
+      const weakness = taker.getWeakness().find(ability => ability == hollyLight.id);
+
+      if(weakness){
+        dmg += ((dmg * 50) / 100)
+        this.displayCriticalLog(`${taker.getName()} received critical damage`)
+
+      }
+
+
+      speller.setMp(mp - hollyLight.cost);
+      taker.takeDmg(dmg);
+    }
+
   }
 
+  //Processing Battle
+  processBattle(){
+    this.setBattleLog("Processing...");
+
+    setTimeout(() => {
+      if(this.player.getSpd() > this.enemy.getSpd()){
+
+        if(this.playerAction(this.player.getAction()) <= 0)
+        this.initTurn();
+        else{
+          this.enemyAction(this.enemy.selectAction());
+          this.initTurn();
+        }
+      }else if(this.player.getSpd() < this.enemy.getSpd()){
+        if(this.enemyAction(this.enemy.selectAction()) <= 0)
+        this.initTurn();
+        else{
+            this.playerAction(this.player.getAction())
+            this.initTurn();
+        }
+
+      }else{
+        this.enemyAction(this.enemy.selectAction());
+        this.playerAction(this.player.getAction());
+        this.initTurn();
+      }
+      this.mpCharge();
+
+    }, 2 * 1000);
+  }
+
+  checkScore():void{
+    if(this.player.getSpd() == this.enemy.getSpd() && this.player.getHp() <= 0 && this.enemy.getHp() <= 0){
+      this.gameover = true;
+      this.setPlayerLog("Draw!")
+    }
+    else
+    if(this.player.getHp() <= 0){
+      this.gameover = true;
+      this.setCriticalLog("YOU LOSE");
+    }else
+    if(this.enemy.getHp() <= 0){
+      this.gameover = true;
+      this.setCriticalLog("YOU WIN!");
+
+    }
+  }
+  mpCharge():void{
+    let mpPoints = this.getMpLoad();
+    let pMp = this.player.getMp();
+    let eMp = this.enemy.getMp();
+    this.player.setMp(pMp + mpPoints);
+    this.enemy.setMp(eMp + mpPoints);
+  }
 }

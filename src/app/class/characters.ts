@@ -1,6 +1,9 @@
 import gameConfig from '../../assets/data/characters.json'
+import { AppComponent } from '../app.component';
 
-export class Characters{
+
+export class Characters {
+
   private id:number = 0;
   private name:string = "";
   private profile:string = "";
@@ -10,7 +13,12 @@ export class Characters{
   private def:number = 0;
   private spd:number = 0;
   private abilities:number[] = [0];
+  private weakness:number[] = [0];
 
+  private ability:AbilityModel[] = [];
+
+  //battle
+  private action:number = 0;
   private atkPoints:number = 0;
   private defPoints:number = 0;
   private abilityId:number = 0;
@@ -23,7 +31,9 @@ export class Characters{
               atk:number,
               def:number,
               spd:number,
-              abilities:number[]){
+              abilities:number[],
+              weakness:number[]
+              ){
 
                 this.id = id;
                 this.name = name;
@@ -34,7 +44,11 @@ export class Characters{
                 this.def = def;
                 this.spd = spd;
                 this.abilities = abilities;
+                this.weakness = weakness;
+
+    this.setAbilitiesModel();
   }
+
   //getters and setters
   getName():string{
     return this.name;
@@ -90,6 +104,12 @@ export class Characters{
   setAbilityId(id:number):void{
     this.abilityId = id;
   }
+  getAction():number{
+    return this.action;
+  }
+  setAction(value:number):void{
+    this.action = value;
+  }
   getAtkPoints():number{
     return this.atkPoints;
   }
@@ -102,14 +122,34 @@ export class Characters{
   setDefPoints(value:number):void{
     this.defPoints = value;
   }
+  getWeakness():number[]{
+    return this.weakness;
+  }
+  setWeakness(value:number[]):void{
+    this.weakness = value;
+  }
 
-
+  attack():number{
+    let atk = this.atkPoints + this.atk
+    return atk;
+  }
   //Actions
+  takeDmg(dmg:number){
+    let def = this.defPoints + this.getDef();
+    let life:number = this.getHp();
+    console.log("defended "+def)
 
-  takeDmg(character:Characters, dmg:number){
-    let life:number = character.getHp();
+    if(def != 0){
+      let blockedDmg = dmg - ((dmg * def) / 100)
+      life -= blockedDmg;
+      console.log(blockedDmg);
+    }else
     life -= dmg;
-    character.setHp(life);
+
+    this.setHp(life);
+
+    if(this.getHp() < 0)
+    this.setHp(0);
   }
 
   checkMp(id:number):boolean{
@@ -117,7 +157,6 @@ export class Characters{
     const ability = gameConfig.abilities.find(ability => ability.id == id)
     if(ability){
       if(this.getMp()>= ability.cost){
-        this.setAbilityId(id);
         result = true;
       }
       else
@@ -126,6 +165,68 @@ export class Characters{
     return result;
   }
 
+  //Aux methods
+  getInfo():void{
+    console.log(`
+    name:${this.getName()}\n
+    profile:${this.getProfile()}\n
+    hp:${this.getHp()}\n
+    mp:${this.getMp()}\n
+    atk:${this.getAtk()}\n
+    def:${this.getDef()}\n
+    spd:${this.getSpd()}\n
+    abilities:${this.getAbilitiesName()}\n
+    weakness:${this.getWeaknessName()} \n
+
+    `)
+
+  }
+  getAbilitiesName():string[]{
+    const abilities:number[] = this.getAbilities();
+    const result:string[] = [];
+    for(let i = 0 ; i <= abilities.length; i++){
+      let ability = gameConfig.abilities.find(value => value.id == abilities[i])
+      if(ability)
+      result.push(ability.name);
+    }
+    return result;
+
+  }
+  getWeaknessName():string[]{
+    const abilities:number[] = this.getWeakness();
+
+    const result:string[] = [];
+    for(let i = 0 ; i <= abilities.length; i++){
+      let ability = gameConfig.abilities.find(value => value.id == abilities[i])
+      if(ability)
+      result.push(ability.name);
+    }
+    return result;
+
+  }
+  getAbilitiesModel():AbilityModel[]{
+    return this.ability;
+  }
+  setAbilitiesModel(){
+
+    const abilities:number[] = this.getAbilities();
+
+    for(let i = 0 ; i < abilities.length; i++){
+      let ap = gameConfig.abilities.find(value => value.id == abilities[i])
+      if(ap){
+        this.ability.push(ap)
+      }
+    }
+    return this.ability;
+  }
+
+}
+
+class AbilityModel{
+  id:number = 0;
+  name:string = '';
+  cost:number = 0;
+  description:string = '';
 }
 
 

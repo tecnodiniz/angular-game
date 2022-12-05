@@ -2,6 +2,7 @@
   list-style: none;
   width: 50%;
   text-align: center;
+  padding:0.25rem;
 }
 .status ul{
   display: flex;

@@ -1,0 +1,58 @@
+<div class="character-painel"
+
+*ngIf="!selected">
+
+<div class="title">
+  <h1>PLAYER SELECT</h1>
+</div>
+<div class="painel-images">
+  <app-select-player-card
+[character]="playerImage"
+[name]="characterPlayerName"
+></app-select-player-card>
+
+<h2>VS</h2>
+
+<app-select-player-card
+[character]="enemyImage"
+[name]="characterEnemyName"
+></app-select-player-card>
+
+</div>
+
+
+<div class="character-select">
+  <h3>Select your Character</h3>
+  <app-character-select
+[characters]="characters"
+(getCharacterId)="getCharacterPlayer($event)"
+></app-character-select>
+
+  <h3>Select Opponent</h3>
+
+  <app-character-select
+  [characters]="enemies"
+  (getCharacterId)="getCharacterEnemy($event)"
+  ></app-character-select>
+
+</div>
+
+<div class="process-painel">
+  <button class="confirm" *ngIf="bothSelected" (click)="getStart()">Confirm</button>
+</div>
+
+</div>
+
+<app-battle-card
+*ngIf="selected"
+[playerId]="characterId"
+[enemyId]="enemyId"
+(characterSelect)="setSelected($event)"
+></app-battle-card>
+
+
+
+
+
+
+

@@ -16,7 +16,10 @@ import { PlayersBarComponent } from './components/players-bar/players-bar.compon
 import {PlayerStatsComponent} from './components/player-stats/player-stats.component';
 import { PlayerProfileComponent } from './components/player-profile/player-profile.component';
 import { CharacterSelectComponent } from './components/character-select/character-select.component';
-import { BattleTestComponent } from './containers/battle-test/battle-test.component';
+import { FreeGameComponent } from './pages/content/free-game/free-game.component';
+import { BattleTestComponent } from './containers/battle-card-old/battle-test.component';
+import { SelectPlayerCardComponent } from './components/select-player-card/select-player-card.component';
+
 
 
 @NgModule({
@@ -30,11 +33,13 @@ import { BattleTestComponent } from './containers/battle-test/battle-test.compon
     TestComponent,
     FreezeTimerComponent,
     BattleCardComponent,
+    BattleTestComponent,
     PlayersBarComponent,
     PlayerStatsComponent,
     PlayerProfileComponent,
     CharacterSelectComponent,
-    BattleTestComponent
+    FreeGameComponent,
+    SelectPlayerCardComponent
   ],
   imports: [
     BrowserModule,

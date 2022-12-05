@@ -4,3 +4,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  font-family: 'Press Start 2P', cursive;
+  background-color: #0F0F0F;
+  color: #fff;
+}

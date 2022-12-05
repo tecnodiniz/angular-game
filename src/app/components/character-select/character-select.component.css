@@ -1,8 +1,4 @@
-.characters-painel{
-  width: 980px;
-  margin: 0 auto;
-  border: solid 1px;
-}
+
 .characters > ul{
   display: flex;
   flex-direction: row;
@@ -17,4 +13,8 @@
 .characters > ul > li img
 {
  max-width: 100%;
+}
+
+.characters > ul > li img:hover{
+  border: solid;
 }

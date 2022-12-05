@@ -1,0 +1,103 @@
+<div class="header">
+  <button *ngIf="!initGame" (click)="startGame()">Start</button>
+  <button *ngIf="gameover" (click)="restartGame()">Restart</button>
+
+  <div class="countdown"*ngIf="start" >
+    <h3>{{countdown}}</h3>
+
+  </div>
+</div>
+
+
+<div class="battle-card">
+  <div class="card card__header">
+    <div class="title">
+      <h2>{{turn}}</h2>
+    </div>
+
+    <app-time-bar
+   [bar]="bar"
+    ></app-time-bar>
+  </div>
+
+  <div class="card card__opponent p-5">
+    <span class="name">{{player2.getName()}}</span>
+    <app-players-bar
+    [bar]="player2Life"
+    ></app-players-bar>
+
+
+
+
+<div class="profile_opponent ">
+      <app-player-profile
+      [profile]="player2.getProfile()"
+      ></app-player-profile>
+    </div>
+
+</div>
+
+<div class="card card__info">
+  <app-battle-log [battleLog]="player2.enemyMoveLog()"></app-battle-log>
+</div>
+
+
+  <div class="card card__info">
+    <app-battle-log [battleLog]="battleLog"></app-battle-log>
+  </div>
+
+  <div class="card card__player p-5">
+    <span class="name">{{player1.getName()}}</span>
+    <app-players-bar
+    [bar]="player1Life"
+    ></app-players-bar>
+
+  </div>
+
+  <div class="profile_player">
+    <app-player-profile
+
+    [profile]="player1.getProfile()"
+    ></app-player-profile>
+  </div>
+
+  <div class="card player__info">
+
+    <div class="card card__info">
+      <app-battle-log [battleLog]="player1.getPlayerAction()"></app-battle-log>
+    </div>
+
+    <app-player-stats
+    [hp]="player1.getHp()"
+    [mp]="player1.getMp()"
+    [atk]="player1.getAtk()"
+    [spd]="player1.getSpd()"
+
+    ></app-player-stats>
+
+  </div>
+
+  <div class="actions" *ngIf="!skills">
+    <button (click)="attack()">Attack</button>
+    <button (click)="showSkills()" >Skill</button>
+    <button (click)="block()">Block</button>
+    <button (click)="done()">Done</button>
+  </div>
+  <div class="skills" *ngIf="skills">
+    <button
+    *ngFor="let ability of player1.getAbilities()"
+    [value]="ability.id"
+    title="mp:{{ability.cost}}"
+    (click)="selectSkill(ability.id)">
+    {{ability.name}}</button>
+
+    <button (click)="back()"><<</button>
+
+  </div>
+
+
+</div>
+
+
+
+

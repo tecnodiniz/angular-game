@@ -1,5 +1,5 @@
 import { Characters } from "./characters";
-
+import gameConfig from '../../assets/data/characters.json'
 export class Player extends Characters{
 
   constructor(
@@ -11,7 +11,8 @@ export class Player extends Characters{
     atk:number,
     def:number,
     spd:number,
-    abilities:number[]
+    abilities:number[],
+    weakness:number[]
     ){
       super(
         id,
@@ -23,8 +24,10 @@ export class Player extends Characters{
         def,
         spd,
         abilities,
+        weakness
         );
     }
+
 
   }
 

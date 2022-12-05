@@ -1,0 +1,17 @@
+.player-card{
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  border: solid 3px #E8E626;
+}
+.player-card > img{
+  max-width: 100%;
+
+}
+.player-name{
+  text-align: center;
+  height: 25px;
+  color: #BF0000;
+  font-size: 0.750rem;
+  padding: 0.750rem;
+}

@@ -1,6 +1,14 @@
 import { Characters } from "./characters";
+import gameConfig from '../../assets/data/characters.json'
 
 export class Enemies extends Characters {
+  enemyActions:number[] = [];
+
+  selectAction():number{
+    let action = Math.floor(Math.random() * this.enemyActions.length);
+    console.log(action)
+    return this.enemyActions[action];
+  }
   constructor(
     id:number,
     name:string,
@@ -10,7 +18,8 @@ export class Enemies extends Characters {
     atk:number,
     def:number,
     spd:number,
-    abilities:number[]
+    abilities:number[],
+    weakness:number[]
     ){
       super(
         id,
@@ -22,7 +31,11 @@ export class Enemies extends Characters {
         def,
         spd,
         abilities,
+        weakness
         );
+    const enemy = gameConfig.enemies.find(enemy => enemy.id == id);
+    if(enemy)
+      this.enemyActions = enemy.actions
     }
 
 }
