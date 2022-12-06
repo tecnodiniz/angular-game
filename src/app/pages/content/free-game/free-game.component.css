@@ -42,9 +42,11 @@
 }
 .process-painel{
   text-align: center;
+  margin-bottom: 1rem;
 }
 .process-painel > button{
   cursor: pointer;
   padding: 0.75rem;
   font-family: 'Press Start 2P', cursive;
 }
+

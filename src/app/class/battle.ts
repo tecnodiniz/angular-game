@@ -178,7 +178,7 @@ export class Battle implements Abilities{
     switch(value){
       case 1:
         this.player.takeDmg(this.enemy.attack());
-        this.displayLog(`${this.enemy.getName()} attcked you`);
+        this.displayLog(`${this.enemy.getName()} attacked you`);
         this.setPlayerLifeBar(this.playerBar(this.player.getHp()));
 
         break;
@@ -262,6 +262,11 @@ export class Battle implements Abilities{
         this.airStrike(this.player,this.enemy);
         this.displayPlayerLog(`${this.player.getName()} used Air Strike`);
         break;
+      case 10:
+        this.hollyLight(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Holly Light`);
+        break;
+
     }
   }
   enemySpell(value:number):void{
@@ -304,6 +309,10 @@ export class Battle implements Abilities{
       case 9:
         this.airStrike(this.enemy,this.player);
         this.displayLog(`${this.enemy.getName()} used Air Strike`);
+        break;
+      case 10:
+        this.hollyLight(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Holly Light`);
         break;
     }
 
