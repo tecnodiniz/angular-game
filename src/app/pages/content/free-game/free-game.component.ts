@@ -10,12 +10,33 @@ export class FreeGameComponent implements OnInit {
 
   characters:any;
   enemies:any;
-  characterId:number = 0;
+  abilities = characters.abilities;
+
+  // Enemy Info
   enemyId:number = 0;
-  characterPlayerName:string = "";
-  playerImage:string ="whosWhite.png"
   characterEnemyName:string = "";
-  enemyImage:string ="whosWhite.png"
+  enemyImage:string ="whosWhite.png";
+  enemyHp:number = 0;
+  enemyMp:number = 0;
+  enemySpd:number = 0;
+  enemyAtk:number = 0;
+  enemyDef:number = 0;
+  enemyAp:string[] = [];
+  enemyWeakness:string[] = [];
+  enemyInfo:boolean = false;
+
+  // Player Info
+  characterId:number = 0;
+  characterPlayerName:string = "";
+  playerImage:string ="whosWhite.png";
+  playerHp:number = 0;
+  playerMp:number = 0;
+  playerSpd:number = 0;
+  playerAtk:number = 0;
+  playerDef:number = 0;
+  playerAp:string[] = [];
+  playerWeakness:string[] = [];
+  playerInfo:boolean = false;
 
 
   //Dinamic of Painel
@@ -30,13 +51,22 @@ export class FreeGameComponent implements OnInit {
 
   getCharacterPlayer(id:number){
     this.selectedChars[0] = id;
+    this.playerAp = [];
 
     const player = characters.character.find(char => char.id == id);
     if(player){
       this.characterPlayerName = player.name;
       this.playerImage = player.profile;
       this.characterId = player.id;
+      this.playerHp = player.hp;
+      this.playerMp = player.mp;
+      this.playerSpd = player.spd;
+      this.playerAtk = player['basic-atk'];
+      this.playerDef = player.def;
 
+      player.abilities.map(id => this.playerAp.push(this.getAbilitiesName(id)));
+
+      this.playerInfo = true;
       this.playerSelected = true;
       this.characterSelected();
     }
@@ -46,6 +76,7 @@ export class FreeGameComponent implements OnInit {
     this.selectedChars[1] = id;
 
     this.selectedChars[0] = id;
+    this.enemyAp = [];
 
     const enemy = characters.enemies.find(char => char.id == id);
     if(enemy){
@@ -53,9 +84,25 @@ export class FreeGameComponent implements OnInit {
       this.enemyImage = enemy.profile;
       this.enemyId = enemy.id;
 
+      this.enemyHp = enemy.hp;
+      this.enemyMp = enemy.mp;
+      this.enemySpd = enemy.spd;
+      this.enemyAtk = enemy.atk
+      this.enemyDef = enemy.def;
+      enemy.abilities.map(id => this.enemyAp.push(this.getAbilitiesName(id)));
+
+      this.enemyInfo = true;
       this.enemySelected = true;
       this.characterSelected();
     }
+  }
+  getAbilitiesName(id:number):string{
+    const ability = this.abilities.find(ap => ap.id == id);
+    let name = '';
+    if(ability)
+    name = ability.name;
+
+    return name;
   }
 
   characterSelected(){

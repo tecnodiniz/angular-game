@@ -1,4 +1,13 @@
 
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  min-height: 318px;
+}
+.info p {
+  color: transparent;
+}
 .character-painel{
   width: 980px;
   margin: 0 auto;

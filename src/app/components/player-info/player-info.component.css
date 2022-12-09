@@ -1,0 +1,16 @@
+.info{
+    font-size: 0.875rem;
+}
+ul{
+    margin-bottom: 1rem;
+}
+ul li{
+    list-style: none;
+}
+p{
+    margin-bottom: 1rem;
+    color:#25cc25;
+}
+.abilities li{
+    margin-bottom: 0.3rem;
+}

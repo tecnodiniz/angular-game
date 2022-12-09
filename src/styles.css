@@ -10,7 +10,7 @@ body{
   color: #fff;
 }
 
-/* .btn-8-bit{
+.btn-8-bit{
   background-color: #92CD41;
   display: inline-block;
   position: relative;
@@ -51,7 +51,7 @@ body{
 }
 .btn-8-bit:active{
   box-shadow: inset 4px 4px 0px 0px #4AA52E;
-} */
+}
 
 .btn-simple{
   width: 50%;

@@ -20,6 +20,7 @@ import { FreeGameComponent } from './pages/content/free-game/free-game.component
 import { BattleTestComponent } from './containers/battle-card-old/battle-test.component';
 import { SelectPlayerCardComponent } from './components/select-player-card/select-player-card.component';
 import { HowToPlayComponent } from './pages/content/how-to-play/how-to-play.component';
+import { PlayerInfoComponent } from './components/player-info/player-info.component';
 
 
 
@@ -41,7 +42,8 @@ import { HowToPlayComponent } from './pages/content/how-to-play/how-to-play.comp
     CharacterSelectComponent,
     FreeGameComponent,
     SelectPlayerCardComponent,
-    HowToPlayComponent
+    HowToPlayComponent,
+    PlayerInfoComponent
   ],
   imports: [
     BrowserModule,
