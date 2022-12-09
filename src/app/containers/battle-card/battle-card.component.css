@@ -56,14 +56,20 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.painel-skills{
+  height: 50px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .skills{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 50px;
-  overflow-y: auto;
+
 }
-.skills button{
+.skills button, .painel-skills button{
   width: 50%;
   background-color: transparent;
   cursor:  pointer;
@@ -73,7 +79,7 @@
   padding: 5px;
 
 }
-.skills button:hover{
+.skills button:hover, .painel-skills button:hover{
   color: yellow;
 }
 .actions button{
@@ -104,4 +110,15 @@
 }
 .menu button:hover{
   color: red;
+}
+.atk{
+  color: red!important;
+}
+.skill{
+  color: red!important;
+}
+.block
+{
+  color: red!important;
+
 }

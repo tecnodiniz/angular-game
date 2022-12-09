@@ -146,7 +146,7 @@ export class Characters {
     }else
     life -= dmg;
 
-    this.setHp(life);
+    this.setHp(Math.floor(life));
 
     if(this.getHp() < 0)
     this.setHp(0);

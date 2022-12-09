@@ -11,4 +11,5 @@ export interface Abilities {
   defenseUp(speller:Characters):void;
   airStrike(speller:Characters, taker:Characters):void;
   hollyLight(speller:Characters, taker:Characters):void;
+  slice(speller:Characters, taker:Characters):void;
 }

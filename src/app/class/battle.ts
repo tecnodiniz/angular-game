@@ -24,10 +24,17 @@ export class Battle implements Abilities{
   private battleLog:string = "";
   private criticalLog:string = "";
   private mpLoad:number = 1;
+  private mpTurnCount:number = 0;
 
+  //Dynamic
   private playerLog:string = '...';
   private enemyLog:string = '...';
   private playerSpellCard:boolean = false;
+  isAtk:boolean = false;
+  isSkill:boolean = false;
+  isBlk:boolean = false;
+
+
 
   constructor(player:Player,enemy:Enemies,timer:number){
     this.timer = timer;
@@ -120,9 +127,41 @@ export class Battle implements Abilities{
     return this.mpLoad;
   }
 
+  getMpTurnCount():number{
+    return this.mpTurnCount;
+  }
+  setMpTurnCount(count:number):void{
+    this.mpTurnCount = count;
+  }
+  getIsAtk():boolean{
+    return this.isAtk;
+  }
+  setIsAtk(value:boolean):void{
+    this.isAtk = value;
+  }
+  getIsSkill():boolean{
+    return this.isSkill;
+  }
+  setIsSkill(value:boolean):void{
+    this.isSkill = value;
+  }
+  getIsBlk():boolean{
+    return this.isBlk;
+  }
+  setIsBlk(value:boolean):void{
+    this.isBlk = value;
+  }
+
   //Game
   startGame():void{
+
     this.initTurn();
+  }
+
+  resetActionClass():void{
+    this.setIsAtk(false);
+    this.setIsBlk(false);
+    this.setIsSkill(false);
   }
 
 
@@ -130,6 +169,7 @@ export class Battle implements Abilities{
     let seconds = this.timer * 10;
     console.log("INIT");
     this.setTurn(this.getTurn() + 1);
+    this.resetActionClass();
 
     this.player.setAction(0);
     this.player.setAbilityId(0);
@@ -266,6 +306,10 @@ export class Battle implements Abilities{
         this.hollyLight(this.player,this.enemy);
         this.displayPlayerLog(`${this.player.getName()} used Holly Light`);
         break;
+      case 11:
+        this.slice(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Slice`);
+        break;
 
     }
   }
@@ -314,6 +358,10 @@ export class Battle implements Abilities{
         this.hollyLight(this.enemy,this.player);
         this.displayLog(`${this.enemy.getName()} used Holly Light`);
         break;
+      case 11:
+        this.slice(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Slice`);
+        break;
     }
 
   }
@@ -336,14 +384,23 @@ export class Battle implements Abilities{
     return this.enemy.getHp();
   }
   playerAtk():void{
+    this.resetActionClass();
+    this.setIsAtk(true);
+
     this.player.setAction(1);
     this.setPlayerLog(`Hit oppentent with ${this.player.getAtk()} points`);
   }
   playerSelectSpell():void{
+    this.resetActionClass();
+    this.setIsSkill(true);
+
     this.player.setAction(2);
     this.playerSpellCard = true;
   }
   playerBlock():void{
+    this.resetActionClass();
+    this.setIsBlk(true);
+
     this.player.setAction(3);
     this.player.setDefPoints(10);
     this.setPlayerLog(`Defending`);
@@ -544,6 +601,23 @@ export class Battle implements Abilities{
     }
 
   }
+  slice(speller: Characters, taker: Characters): void {
+    let dmg = 20;
+    dmg += ((speller.getSpd() * 10) * dmg) / 100;
+    console.log(dmg);
+
+    let mp = speller.getMp();
+
+    const slice = gameConfig.abilities.find(ability => ability.id == 10);
+
+    if(slice){
+      const weakness = taker.getWeakness().find(ability => ability == slice.id);
+
+      speller.setMp(mp - slice.cost);
+      taker.takeDmg(dmg);
+    }
+
+  }
 
   //Processing Battle
   processBattle(){
@@ -571,7 +645,8 @@ export class Battle implements Abilities{
         this.playerAction(this.player.getAction());
         this.initTurn();
       }
-      this.mpCharge();
+      this.setMpTurnCount(this.getMpTurnCount() + 1);
+      this.mpCharge(this.getMpTurnCount());
 
     }, 2 * 1000);
   }
@@ -592,11 +667,18 @@ export class Battle implements Abilities{
 
     }
   }
-  mpCharge():void{
-    let mpPoints = this.getMpLoad();
-    let pMp = this.player.getMp();
-    let eMp = this.enemy.getMp();
-    this.player.setMp(pMp + mpPoints);
-    this.enemy.setMp(eMp + mpPoints);
+  mpCharge(mpTurnCount:number):void{
+    if(mpTurnCount == 3){
+      let mpPoints = this.getMpLoad();
+      let pMp = this.player.getMp();
+      let eMp = this.enemy.getMp();
+      this.player.setMp(pMp + mpPoints);
+      this.enemy.setMp(eMp + mpPoints);
+
+      this.setMpTurnCount(0);
+
+    }
+
   }
+
 }

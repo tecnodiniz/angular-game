@@ -8,7 +8,7 @@
       "hp":100,
       "mp":10,
       "spd":2,
-      "basic-atk":25,
+      "basic-atk":15,
       "def":0,
       "abilities":[1,4,5]
     },
@@ -19,7 +19,7 @@
       "hp":100,
       "mp":10,
       "spd":1,
-      "basic-atk":30,
+      "basic-atk":20,
       "def":0,
       "abilities":[2,4,8]
     },
