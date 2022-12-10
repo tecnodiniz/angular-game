@@ -21,6 +21,7 @@ import { BattleTestComponent } from './containers/battle-card-old/battle-test.co
 import { SelectPlayerCardComponent } from './components/select-player-card/select-player-card.component';
 import { HowToPlayComponent } from './pages/content/how-to-play/how-to-play.component';
 import { PlayerInfoComponent } from './components/player-info/player-info.component';
+import { TitleComponent } from './components/title/title.component';
 
 
 
@@ -43,7 +44,8 @@ import { PlayerInfoComponent } from './components/player-info/player-info.compon
     FreeGameComponent,
     SelectPlayerCardComponent,
     HowToPlayComponent,
-    PlayerInfoComponent
+    PlayerInfoComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,

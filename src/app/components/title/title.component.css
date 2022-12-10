@@ -1,0 +1,24 @@
+h1{
+    font-size: 6rem;
+    background: -webkit-linear-gradient(#f20000, #fff068);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation-name: title;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes title {
+    from {
+        background: -webkit-linear-gradient(#f20000, #fff068);
+        -webkit-background-clip: text;
+
+    }
+    to {
+        background: -webkit-linear-gradient(#fff068,#f20000);
+        -webkit-background-clip: text;
+
+    }
+
+}
+
