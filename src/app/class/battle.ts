@@ -585,7 +585,7 @@ export class Battle implements Abilities{
 
       if(weakness){
         dmg += ((dmg * 50) / 100)
-        this.displayCriticalLog(`${taker.getName()} received critical damage`)
+        this.displayCriticalLog(`${taker.getName()} received critical damage`);
 
       }
 
@@ -677,6 +677,7 @@ export class Battle implements Abilities{
     if(this.enemy.getHp() <= 0){
       this.gameover = true;
       this.setCriticalLog("YOU WIN!");
+      this.victorySong();
 
     }
   }
@@ -704,6 +705,13 @@ export class Battle implements Abilities{
   errorSong(){
     let audio = new Audio();
     audio.src = "../../assets/audio/UI songs/Error.wav"
+    audio.load();
+    audio.play();
+
+  }
+  victorySong(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/win-song.ogg"
     audio.load();
     audio.play();
 
