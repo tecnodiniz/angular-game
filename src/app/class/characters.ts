@@ -147,6 +147,7 @@ export class Characters {
     life -= dmg;
 
     this.setHp(Math.floor(life));
+    this.hitSong();
 
     if(this.getHp() < 0)
     this.setHp(0);
@@ -218,6 +219,14 @@ export class Characters {
       }
     }
     return this.ability;
+  }
+
+  //songs
+  hitSong(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/hit01.mp3.flac";
+    audio.load();
+    audio.play();
   }
 
 }

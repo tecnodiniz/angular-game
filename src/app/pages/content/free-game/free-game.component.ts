@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import characters from '../../../../assets/data/characters.json';
 
 @Component({
@@ -6,7 +6,10 @@ import characters from '../../../../assets/data/characters.json';
   templateUrl: './free-game.component.html',
   styleUrls: ['./free-game.component.css']
 })
-export class FreeGameComponent implements OnInit {
+export class FreeGameComponent implements OnInit, OnDestroy{
+
+  themeSong = new Audio();
+  songUrl:string  = '';
 
   characters:any;
   enemies:any;
@@ -112,9 +115,11 @@ export class FreeGameComponent implements OnInit {
 
   getStart(){
     this.selected = true;
+
   }
   setSelected(value:boolean):void{
     this.selected = value;
+
   }
 
   constructor() { }
@@ -124,5 +129,12 @@ export class FreeGameComponent implements OnInit {
     this.enemies = characters.enemies;
 
   }
+  ngOnDestroy(): void {
+
+  }
+
+
+
+
 
 }

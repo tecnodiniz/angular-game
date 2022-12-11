@@ -20,7 +20,7 @@
       "hp":100,
       "mp":15,
       "spd":1,
-      "basic-atk":15,
+      "basic-atk":20,
       "def":0,
       "abilities":[2,7,8],
       "weakness":[5]
@@ -32,7 +32,7 @@
       "name":"Sea Imp",
       "profile":"sea-imp.png",
       "hp":100,
-      "mp":2,
+      "mp":20,
       "spd":1,
       "atk":15,
       "def":0,
@@ -42,8 +42,22 @@
 
     },
     {
-      "id":4,
-      "name":"Lord Lead",
+      "id":2,
+      "name":"Abigail",
+      "profile":"abigail.png",
+      "hp":100,
+      "mp":50,
+      "spd":1,
+      "atk":15,
+      "def":0,
+      "actions":[1,2],
+      "abilities":[6,7],
+      "weakness":[11]
+
+    },
+    {
+      "id":3,
+      "name":"Demon Lead",
       "profile":"lord-commander.png",
       "hp":100,
       "mp":50,
@@ -115,7 +129,7 @@
     {
       "id":8,
       "name":"Defense Up",
-      "description":"Increase defense by 10% points",
+      "description":"Increase defense by 20% points",
       "cost":5
     },
     {

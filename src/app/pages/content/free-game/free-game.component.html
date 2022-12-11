@@ -1,6 +1,13 @@
+
+
 <div class="character-painel"
 
 *ngIf="!selected">
+<app-song
+[audio]="'player-select.mp3'"
+>
+
+</app-song>
 
   <div class="title">
     <h1>PLAYER SELECT</h1>
@@ -85,12 +92,20 @@
 
 </div>
 
+<div *ngIf="selected">
+  <app-song
+  audio="battleTheme.mp3">
+</app-song>
+
 <app-battle-card
-*ngIf="selected"
+
 [playerId]="characterId"
 [enemyId]="enemyId"
 (characterSelect)="setSelected($event)"
 ></app-battle-card>
+
+</div>
+
 
 
 

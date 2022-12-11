@@ -22,6 +22,8 @@ import { SelectPlayerCardComponent } from './components/select-player-card/selec
 import { HowToPlayComponent } from './pages/content/how-to-play/how-to-play.component';
 import { PlayerInfoComponent } from './components/player-info/player-info.component';
 import { TitleComponent } from './components/title/title.component';
+import { SongComponent } from './components/song/song.component';
+
 
 
 
@@ -45,7 +47,8 @@ import { TitleComponent } from './components/title/title.component';
     SelectPlayerCardComponent,
     HowToPlayComponent,
     PlayerInfoComponent,
-    TitleComponent
+    TitleComponent,
+    SongComponent
   ],
   imports: [
     BrowserModule,

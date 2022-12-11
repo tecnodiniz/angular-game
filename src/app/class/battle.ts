@@ -7,6 +7,8 @@ import gameConfig from '../../assets/data/characters.json'
 
 export class Battle implements Abilities{
 
+  audio = new Audio();
+
   //Players Settings
   private player:Player = new Player(0,'','',0,0,0,0,0,[0],[0]);
   private enemy:Enemies = new Enemies(0,'','',0,0,0,0,0,[0],[0]);
@@ -383,7 +385,10 @@ export class Battle implements Abilities{
     }
     return this.enemy.getHp();
   }
+
+  //Actions
   playerAtk():void{
+    this.cursorSong();
     this.resetActionClass();
     this.setIsAtk(true);
 
@@ -391,6 +396,7 @@ export class Battle implements Abilities{
     this.setPlayerLog(`Hit oppentent with ${this.player.getAtk()} points`);
   }
   playerSelectSpell():void{
+    this.cursorSong();
     this.resetActionClass();
     this.setIsSkill(true);
 
@@ -398,6 +404,7 @@ export class Battle implements Abilities{
     this.playerSpellCard = true;
   }
   playerBlock():void{
+    this.cursorSong();
     this.resetActionClass();
     this.setIsBlk(true);
 
@@ -407,14 +414,20 @@ export class Battle implements Abilities{
   }
   playerSpellClick(id:number,description:string):void{
     if(this.player.checkMp(id)){
+      this.cursorSong();
       this.player.setAbilityId(id);
       this.setPlayerLog(description);
       this.setPlayerSpellCard(false);
-    }else
-    this.setPlayerLog("NO MP");
+    }else{
+      this.setPlayerLog("NO MP");
+      this.errorSong();
+
+    }
+
 
   }
   endTurn():void{
+    this.cursorSong();
     this.setFinishAction(true);
   }
 
@@ -472,7 +485,7 @@ export class Battle implements Abilities{
     if(lifesteal){
       let hpChar1 = character1.getHp() + 15;
       let hpChar2 = character2.getHp() - 15;
-      if(character1.getHp() > 100)
+      if(hpChar1 > 100)
       hpChar1 = 100;
 
       let mp = character1.getMp();
@@ -558,7 +571,7 @@ export class Battle implements Abilities{
       let def = speller.getDef();
       let mp = speller.getMp();
       speller.setMp(mp - defenseUp.cost)
-      speller.setDef(def + 10);
+      speller.setDef(def + 15);
     }
   }
   airStrike(speller: Characters, taker: Characters): void {
@@ -678,6 +691,21 @@ export class Battle implements Abilities{
       this.setMpTurnCount(0);
 
     }
+
+  }
+
+  //Songs
+  cursorSong(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/Cursor.wav"
+    audio.load();
+    audio.play();
+  }
+  errorSong(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/Error.wav"
+    audio.load();
+    audio.play();
 
   }
 
