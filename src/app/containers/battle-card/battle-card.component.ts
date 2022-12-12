@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { Player } from 'src/app/class/player';
 import { Enemies } from 'src/app/class/enemies';
 import { Battle } from 'src/app/class/battle';
-import { Characters } from 'src/app/class/characters';
 import gameConfig from '../../../assets/data/characters.json'
 
 @Component({
@@ -10,7 +9,9 @@ import gameConfig from '../../../assets/data/characters.json'
   templateUrl: './battle-card.component.html',
   styleUrls: ['./battle-card.component.css']
 })
-export class BattleCardComponent implements OnInit {
+export class BattleCardComponent implements OnInit,OnDestroy {
+
+  muted:boolean = false;
 
   @Input()
   playerId:number = 0;
@@ -32,6 +33,13 @@ export class BattleCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.startGame();
+
+    this.battle.battleSong().play();
+
+  }
+  ngOnDestroy(): void {
+    this.battle.audio.pause();
+    console.log("destroied")
   }
 
   startGame(){
@@ -79,6 +87,15 @@ export class BattleCardComponent implements OnInit {
   }
   backAction():void{
     this.battle.setPlayerSpellCard(false);
+  }
+  muteMusic(){
+    this.battle.audio.muted = true;
+    this.muted = true;
+
+  }
+  playMusic(){
+    this.battle.audio.muted = false;
+    this.muted = false;
   }
 
 }

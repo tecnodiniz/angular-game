@@ -23,6 +23,7 @@ import { HowToPlayComponent } from './pages/content/how-to-play/how-to-play.comp
 import { PlayerInfoComponent } from './components/player-info/player-info.component';
 import { TitleComponent } from './components/title/title.component';
 import { SongComponent } from './components/song/song.component';
+import { StartComponent } from './pages/start/start.component';
 
 
 
@@ -48,7 +49,8 @@ import { SongComponent } from './components/song/song.component';
     HowToPlayComponent,
     PlayerInfoComponent,
     TitleComponent,
-    SongComponent
+    SongComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,

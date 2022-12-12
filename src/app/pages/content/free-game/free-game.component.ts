@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Songs } from 'src/app/class/songs';
 import characters from '../../../../assets/data/characters.json';
 
 @Component({
@@ -8,8 +9,11 @@ import characters from '../../../../assets/data/characters.json';
 })
 export class FreeGameComponent implements OnInit, OnDestroy{
 
+  music:Songs = new Songs();
+
   themeSong = new Audio();
   songUrl:string  = '';
+  muted:boolean = false;
 
   characters:any;
   enemies:any;
@@ -132,6 +136,9 @@ export class FreeGameComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
 
   }
+
+
+
 
 
 

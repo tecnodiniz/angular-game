@@ -157,6 +157,7 @@ export class Battle implements Abilities{
   //Game
   startGame():void{
 
+
     this.initTurn();
   }
 
@@ -200,6 +201,7 @@ export class Battle implements Abilities{
         let percent = ((seconds / 10)*100) / this.timer;
 
         this.timeBar = percent + "%";
+        console.log(seconds)
 
         seconds--;
 
@@ -388,7 +390,7 @@ export class Battle implements Abilities{
 
   //Actions
   playerAtk():void{
-    this.cursorSong();
+    this.cursorSong2();
     this.resetActionClass();
     this.setIsAtk(true);
 
@@ -396,7 +398,7 @@ export class Battle implements Abilities{
     this.setPlayerLog(`Hit oppentent with ${this.player.getAtk()} points`);
   }
   playerSelectSpell():void{
-    this.cursorSong();
+    this.cursorSong2();
     this.resetActionClass();
     this.setIsSkill(true);
 
@@ -404,7 +406,7 @@ export class Battle implements Abilities{
     this.playerSpellCard = true;
   }
   playerBlock():void{
-    this.cursorSong();
+    this.cursorSong2();
     this.resetActionClass();
     this.setIsBlk(true);
 
@@ -414,7 +416,7 @@ export class Battle implements Abilities{
   }
   playerSpellClick(id:number,description:string):void{
     if(this.player.checkMp(id)){
-      this.cursorSong();
+      this.cursorSong2();
       this.player.setAbilityId(id);
       this.setPlayerLog(description);
       this.setPlayerSpellCard(false);
@@ -427,7 +429,7 @@ export class Battle implements Abilities{
 
   }
   endTurn():void{
-    this.cursorSong();
+    this.cursorSong3();
     this.setFinishAction(true);
   }
 
@@ -672,12 +674,15 @@ export class Battle implements Abilities{
     else
     if(this.player.getHp() <= 0){
       this.gameover = true;
+      this.audio.pause();
       this.setCriticalLog("YOU LOSE");
     }else
     if(this.enemy.getHp() <= 0){
       this.gameover = true;
       this.setCriticalLog("YOU WIN!");
+      this.audio.pause();
       this.victorySong();
+
 
     }
   }
@@ -702,6 +707,18 @@ export class Battle implements Abilities{
     audio.load();
     audio.play();
   }
+  cursorSong2(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/Menu1A.wav"
+    audio.load();
+    audio.play();
+  }
+  cursorSong3(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/Menu2A.wav"
+    audio.load();
+    audio.play();
+  }
   errorSong(){
     let audio = new Audio();
     audio.src = "../../assets/audio/UI songs/Error.wav"
@@ -716,5 +733,13 @@ export class Battle implements Abilities{
     audio.play();
 
   }
+  battleSong(){
+    this.audio = new Audio();
+    this.audio.src = "../../assets/audio/battleTheme.mp3"
+    this.audio.load();
+    return this.audio;
+  }
+
+
 
 }

@@ -146,8 +146,14 @@ export class Characters {
     }else
     life -= dmg;
 
-    this.setHp(Math.floor(life));
+    if(dmg > 0 && dmg < 50)
     this.hitSong();
+    else
+    this.strongHit();
+
+
+    this.setHp(Math.floor(life));
+
 
     if(this.getHp() < 0)
     this.setHp(0);
@@ -223,6 +229,12 @@ export class Characters {
 
   //songs
   hitSong(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/hit11.mp3.flac";
+    audio.load();
+    audio.play();
+  }
+  strongHit(){
     let audio = new Audio();
     audio.src = "../../assets/audio/UI songs/hit01.mp3.flac";
     audio.load();

@@ -4,10 +4,15 @@ import { FreeGameComponent } from './pages/content/free-game/free-game.component
 import { HowToPlayComponent } from './pages/content/how-to-play/how-to-play.component';
 import { TestComponent } from './pages/content/test/test.component';
 import { HomeComponent } from './pages/home/home.component';
+import { StartComponent } from './pages/start/start.component';
 
 const routes: Routes = [
   {
     path:'',
+    component:StartComponent
+  },
+  {
+    path:'home',
     component:HomeComponent
   },
   {

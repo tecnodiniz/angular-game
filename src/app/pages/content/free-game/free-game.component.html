@@ -4,7 +4,7 @@
 
 *ngIf="!selected">
 <app-song
-[audio]="'player-select.mp3'"
+[audio]="'stf2theme.mp3'"
 >
 
 </app-song>
@@ -65,11 +65,6 @@
 
   </div>
 
-
-
-
-
-
   <div class="character-select">
       <h3>Select your Character</h3>
       <app-character-select
@@ -93,15 +88,14 @@
 </div>
 
 <div *ngIf="selected">
-  <app-song
-  audio="battleTheme.mp3">
-</app-song>
+
 
 <app-battle-card
 
 [playerId]="characterId"
 [enemyId]="enemyId"
 (characterSelect)="setSelected($event)"
+
 ></app-battle-card>
 
 </div>

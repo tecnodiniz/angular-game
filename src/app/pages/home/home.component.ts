@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Songs } from 'src/app/class/songs';
 
 
 @Component({
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy{
+  song = new Songs().theBraveTheme();
 
 
 
@@ -15,6 +17,10 @@ export class HomeComponent implements OnInit{
   }
   ngOnInit(): void {
 
+    this.song.play();
 
+  }
+  ngOnDestroy(): void {
+    this.song.pause();
   }
 }

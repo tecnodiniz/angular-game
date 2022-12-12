@@ -10,11 +10,14 @@ export class SongComponent implements OnInit, OnDestroy {
   song = new Audio();
   mute:boolean = false;
   ulr:string = "../../../assets/audio/";
+  stop:boolean = false;
 
   @Input()
   audio:string = "";
 
   path:string = "";
+
+
 
 
 
@@ -25,7 +28,7 @@ export class SongComponent implements OnInit, OnDestroy {
     this.playSong();
   }
   ngOnDestroy(): void {
-    this.muteSong();
+    this.stopSong();
   }
 
 
@@ -39,8 +42,18 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   muteSong(){
-    this.song.pause();
+    this.song.muted = true;
     this.mute = true;
+  }
+  unMuteSong(){
+    this.song.muted = false;
+    this.mute = false;
+
+  }
+  stopSong(){
+    this.song.pause();
+
+
   }
 
 }

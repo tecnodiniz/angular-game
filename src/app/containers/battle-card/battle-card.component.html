@@ -1,4 +1,6 @@
 <div class="container">
+<button (click)="muteMusic()" *ngIf="!muted" >Mute</button>
+<button (click)="playMusic()" *ngIf="muted">play</button>
 
   <div class="battle-card" >
     <div class="card card__header">
