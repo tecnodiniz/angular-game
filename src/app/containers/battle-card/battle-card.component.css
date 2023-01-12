@@ -1,17 +1,15 @@
 .container{
   display: flex;
   flex-direction: column;
-  position: absolute;
+  /* position: absolute;
   top:50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%); */
+
 }
 
 .battle-card{
-  width: 400px;
   font-size: 0.75rem;
-  border: solid;
-  padding: 5px;
   margin-bottom: 1rem;
 }
 .card{
@@ -57,7 +55,7 @@
   justify-content: space-around;
 }
 .painel-skills{
-  height: 50px;
+  height: 100px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -83,13 +81,16 @@
   color: yellow;
 }
 .actions button{
-  width: fit-content;
+    width: 100px;
+    padding: 20px 0px;
+    margin-bottom: 1rem;
+  /* width: fit-content;
   background-color: transparent;
   cursor:  pointer;
   border: none;
   color:#fff;
   font-family: 'Press Start 2P', cursive;
-  padding: 5px;
+  padding: 5px; */
 }
 .actions button:hover{
   color: yellow;
@@ -100,14 +101,11 @@
   align-items: center;
 }
 .menu button{
-  width: 50%;
-  background-color: transparent;
-  cursor:  pointer;
-  border: none;
-  color:#fff;
-  font-family: 'Press Start 2P', cursive;
-  padding: 5px;
+  width: 130px;
+  padding: 20px 0px;
+  margin: 0.75em;
 }
+
 .menu button:hover{
   color: red;
 }

@@ -1,8 +1,20 @@
+.card{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100px;
+}
 .player-card{
-  width: 200px;
-  height: 200px;
   background-color: black;
   border: solid 3px #E8E626;
+  animation-name: border-change;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+@keyframes border-change {
+  from {border: solid 3px #E8E626;}
+  to{border: solid 3px #BF0000;}
+
 }
 .player-card > img{
   max-width: 100%;

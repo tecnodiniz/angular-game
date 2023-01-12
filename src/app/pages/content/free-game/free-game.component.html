@@ -3,11 +3,7 @@
 <div class="character-painel"
 
 *ngIf="!selected">
-<app-song
-[audio]="'stf2theme.mp3'"
->
 
-</app-song>
 
   <div class="title">
     <h1>PLAYER SELECT</h1>
@@ -15,7 +11,7 @@
 
   <div class="header">
 
-    <div class="info">
+    <!-- <div class="info">
       <p>informations</p>
       <app-player-info
       *ngIf="playerInfo"
@@ -28,11 +24,9 @@
 
       ></app-player-info>
 
-    </div>
+    </div> -->
 
     <div class="painel-images">
-
-
 
         <app-select-player-card
       [character]="playerImage"
@@ -49,7 +43,7 @@
 
     </div>
 
-    <div class="info">
+    <!-- <div class="info">
       <p>Informations</p>
       <app-player-info
       *ngIf="enemyInfo"
@@ -61,29 +55,44 @@
       [ability]="enemyAp"
 
       ></app-player-info>
-    </div>
+    </div> -->
 
   </div>
 
   <div class="character-select">
-      <h3>Select your Character</h3>
+
+
+    <div class="__select">
+
+      <h3>Select You Character</h3>
       <app-character-select
     [characters]="characters"
     (getCharacterId)="getCharacterPlayer($event)"
     ></app-character-select>
 
-      <h3>Select Opponent</h3>
+    </div>
+
+    <div class="__select">
+       <h3>Select Opponent</h3>
 
       <app-character-select
       [characters]="enemies"
       (getCharacterId)="getCharacterEnemy($event)"
       ></app-character-select>
 
+    </div>
+
+
   </div>
 
   <div class="process-painel">
-    <button class="btn-simple"*ngIf="bothSelected" (click)="getStart()">Confirm</button>
+    <button class="btn-8-bit"*ngIf="bothSelected" (click)="getStart()">Confirm</button>
   </div>
+  <app-song
+  [audio]="'stf2theme.mp3'"
+  >
+
+  </app-song>
 
 </div>
 

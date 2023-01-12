@@ -19,7 +19,8 @@ export class Enemies extends Characters {
     def:number,
     spd:number,
     abilities:number[],
-    weakness:number[]
+    weakness:number[],
+    resistence:number[]
     ){
       super(
         id,
@@ -31,7 +32,9 @@ export class Enemies extends Characters {
         def,
         spd,
         abilities,
-        weakness
+        weakness,
+        resistence
+
         );
     const enemy = gameConfig.enemies.find(enemy => enemy.id == id);
     if(enemy)

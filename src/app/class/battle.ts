@@ -10,8 +10,8 @@ export class Battle implements Abilities{
   audio = new Audio();
 
   //Players Settings
-  private player:Player = new Player(0,'','',0,0,0,0,0,[0],[0]);
-  private enemy:Enemies = new Enemies(0,'','',0,0,0,0,0,[0],[0]);
+  private player:Player = new Player(0,'','',0,0,0,0,0,[0],[0],[0]);
+  private enemy:Enemies = new Enemies(0,'','',0,0,0,0,0,[0],[0],[0]);
   private playerHp:number = 0;
   private enemyHp:number = 0;
   private playerLifebar:string = "0%";
@@ -153,11 +153,12 @@ export class Battle implements Abilities{
   setIsBlk(value:boolean):void{
     this.isBlk = value;
   }
+  setGameOver(value:boolean):void{
+    this.gameover = value;
+  }
 
   //Game
   startGame():void{
-
-
     this.initTurn();
   }
 
@@ -201,7 +202,7 @@ export class Battle implements Abilities{
         let percent = ((seconds / 10)*100) / this.timer;
 
         this.timeBar = percent + "%";
-        console.log(seconds)
+
 
         seconds--;
 
@@ -314,6 +315,10 @@ export class Battle implements Abilities{
         this.slice(this.player,this.enemy);
         this.displayPlayerLog(`${this.player.getName()} used Slice`);
         break;
+      case 12:
+        this.thunderWave(this.player,this.enemy);
+        this.displayPlayerLog(`${this.player.getName()} used Thunder Wave`);
+        break;
 
     }
   }
@@ -365,6 +370,10 @@ export class Battle implements Abilities{
       case 11:
         this.slice(this.enemy,this.player);
         this.displayLog(`${this.enemy.getName()} used Slice`);
+        break;
+      case 12:
+        this.thunderWave(this.enemy,this.player);
+        this.displayLog(`${this.enemy.getName()} used Thunder Wave`);
         break;
     }
 
@@ -429,7 +438,7 @@ export class Battle implements Abilities{
 
   }
   endTurn():void{
-    this.cursorSong3();
+    this.cursorSong4();
     this.setFinishAction(true);
   }
 
@@ -463,7 +472,7 @@ export class Battle implements Abilities{
     }
 
   heal(character: Characters, healPercent:number | null): void {
-    var healPoints:number = 30;
+    var healPoints:number = 45;
 
     if(healPercent != 0 && healPercent != null)
     healPoints += (healPoints * healPercent) / 100;
@@ -508,18 +517,12 @@ export class Battle implements Abilities{
 
   }
   darkBlade(speller: Characters,taker:Characters): void {
-    let dmg = 60;
+    let dmg = 45;
     let mp = speller.getMp();
     const darkBlade = gameConfig.abilities.find(ability => ability.id == 5);
 
     if(darkBlade){
-      const weakness = taker.getWeakness().find(ability => ability == darkBlade.id);
-
-      if(weakness){
-        dmg += ((dmg * 50) / 100)
-        this.displayCriticalLog(`${taker.getName()} received critical damage`)
-
-      }
+      this.checkDamage(darkBlade.id,dmg,taker)
       speller.setMp(mp - darkBlade.cost);
 
       taker.takeDmg(dmg);
@@ -532,35 +535,21 @@ export class Battle implements Abilities{
     const fireBall = gameConfig.abilities.find(ability => ability.id == 6);
 
     if(fireBall){
-      const weakness = taker.getWeakness().find(ability => ability == fireBall.id);
-
-      if(weakness){
-        dmg += ((dmg * 50) / 100)
-        this.displayCriticalLog(`${taker.getName()} received critical damage`)
-
-      }
-
+      dmg = this.checkDamage(fireBall.id,dmg,taker);
 
       speller.setMp(mp - fireBall.cost);
       taker.takeDmg(dmg);
     }
 
   }
+
   iceStone(speller: Characters, taker: Characters): void {
     let dmg = 25;
     let mp = speller.getMp();
     const iceStone = gameConfig.abilities.find(ability => ability.id == 7);
 
     if(iceStone){
-
-      const weakness = taker.getWeakness().find(ability => ability == iceStone.id);
-
-      if(weakness){
-        dmg += ((dmg * 50) / 100)
-        this.displayCriticalLog(`${taker.getName()} received critical damage`)
-
-      }
-
+      this.checkDamage(iceStone.id,dmg,taker)
       speller.setMp(mp - iceStone.cost);
       taker.takeDmg(dmg);
       taker.setSpd(taker.getSpd() - 1);
@@ -583,14 +572,7 @@ export class Battle implements Abilities{
     const airStrike = gameConfig.abilities.find(ability => ability.id == 9);
 
     if(airStrike){
-      const weakness = taker.getWeakness().find(ability => ability == airStrike.id);
-
-      if(weakness){
-        dmg += ((dmg * 50) / 100)
-        this.displayCriticalLog(`${taker.getName()} received critical damage`);
-
-      }
-
+      this.checkDamage(airStrike.id,dmg,taker)
       speller.setMp(mp - airStrike.cost);
       taker.takeDmg(dmg);
     }
@@ -602,15 +584,7 @@ export class Battle implements Abilities{
     const hollyLight = gameConfig.abilities.find(ability => ability.id == 10);
 
     if(hollyLight){
-      const weakness = taker.getWeakness().find(ability => ability == hollyLight.id);
-
-      if(weakness){
-        dmg += ((dmg * 50) / 100)
-        this.displayCriticalLog(`${taker.getName()} received critical damage`)
-
-      }
-
-
+      this.checkDamage(hollyLight.id,dmg,taker)
       speller.setMp(mp - hollyLight.cost);
       taker.takeDmg(dmg);
     }
@@ -626,12 +600,42 @@ export class Battle implements Abilities{
     const slice = gameConfig.abilities.find(ability => ability.id == 10);
 
     if(slice){
-      const weakness = taker.getWeakness().find(ability => ability == slice.id);
+      this.checkDamage(slice.id,dmg,taker)
 
       speller.setMp(mp - slice.cost);
       taker.takeDmg(dmg);
     }
 
+  }
+  thunderWave(speller: Characters,taker:Characters): void {
+    let dmg = 40;
+    let mp = speller.getMp();
+
+    const thunderWave = gameConfig.abilities.find(ability => ability.id == 12);
+
+    if(thunderWave){
+      dmg = this.checkDamage(thunderWave.id,dmg,taker);
+      speller.setMp(mp - thunderWave.cost);
+      taker.takeDmg(dmg);
+    }
+
+  }
+
+  checkDamage(abilityId:number, dmg:number,taker:Characters):number{
+    const weakness = taker.getWeakness().find(ability => ability == abilityId);
+    const resistence = taker.getReistence().find(ability => ability == abilityId);
+
+    if(weakness){
+      dmg += ((dmg * 50) / 100)
+      this.displayCriticalLog(`${taker.getName()} received critical damage`);
+      console.log(abilityId);
+
+    }
+    if(resistence){
+      dmg -= ((dmg * 50) / 100)
+      this.displayCriticalLog(`${taker.getName()} received less damage`);
+    }
+    return dmg;
   }
 
   //Processing Battle
@@ -715,7 +719,13 @@ export class Battle implements Abilities{
   }
   cursorSong3(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/Menu2A.wav"
+    audio.src = "../../assets/audio/UI songs/Menu1B.wav"
+    audio.load();
+    audio.play();
+  }
+  cursorSong4(){
+    let audio = new Audio();
+    audio.src = "../../assets/audio/UI songs/Equip.wav"
     audio.load();
     audio.play();
   }

@@ -1,6 +1,9 @@
 <div class="container">
-<button (click)="muteMusic()" *ngIf="!muted" >Mute</button>
-<button (click)="playMusic()" *ngIf="muted">play</button>
+<!-- <audio controls loop autoplay style="align-self: center;" id="audio">
+  <source src="../../../assets/audio/battleTheme.mp3" type="">
+</audio> -->
+<button style="margin-bottom:5px;" (click)="muteMusic()" *ngIf="!muted" >Mute</button>
+<button style="margin-bottom:5px;" (click)="playMusic()" *ngIf="muted">play</button>
 
   <div class="battle-card" >
     <div class="card card__header">
@@ -25,6 +28,10 @@
       ></app-players-bar>
 
   <div class="profile_opponent">
+    <!-- <app-player-profile
+    profile="bigodudo.png"
+    ></app-player-profile> -->
+
         <app-player-profile
         [profile]="enemy.getProfile()"
         ></app-player-profile>
@@ -35,6 +42,7 @@
   <div class="card card__info">
     <app-battle-log [battleLog]="battle.getEnemyLog()"></app-battle-log>
   </div>
+
 
   <div class="card card__info">
     <app-battle-log [battleLog]="battle.getCriticalLog()"></app-battle-log>
@@ -57,6 +65,10 @@
     </div>
 
     <div class="profile_player">
+      <!-- <app-player-profile
+
+      profile="Bael.png"
+      ></app-player-profile> -->
       <app-player-profile
 
       [profile]="player.getProfile()"
@@ -82,10 +94,10 @@
     </div>
 
     <div class="actions" *ngIf="!battle.getPlayerSpellCard()">
-      <button (click)="battle.playerAtk()" [class.atk]="battle.getIsAtk()">Attack</button>
-      <button (click)="battle.playerSelectSpell()" [class.skill]="battle.getIsSkill()" >Skill</button>
-      <button (click)="battle.playerBlock()" [class.block]="battle.getIsBlk()" >Block</button>
-      <button (click)="battle.endTurn()">Done</button>
+      <button class="btn-8-bit" (click)="battle.playerAtk()" [class.atk]="battle.getIsAtk()">Attack</button>
+      <button class="btn-8-bit" (click)="battle.playerSelectSpell()" [class.skill]="battle.getIsSkill()" >Skill</button>
+      <button class="btn-8-bit" (click)="battle.playerBlock()" [class.block]="battle.getIsBlk()" >Block</button>
+      <button class="btn-8-bit" (click)="battle.endTurn()">Done</button>
     </div>
 
     <div class="painel-skills" *ngIf="battle.getPlayerSpellCard();">
@@ -110,8 +122,8 @@
 
 
   <div class="menu" *ngIf="battle.getGameOver()">
-    <button (click)="startGame()">Restart</button>
-    <button (click)="sendValue(false)">Character Select</button>
+    <button class="btn-8-bit" (click)="startGame()">Restart</button>
+    <button class="btn-8-bit" (click)="sendValue(false)">Character Select</button>
 
   </div>
 

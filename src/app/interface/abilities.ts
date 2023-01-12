@@ -12,4 +12,6 @@ export interface Abilities {
   airStrike(speller:Characters, taker:Characters):void;
   hollyLight(speller:Characters, taker:Characters):void;
   slice(speller:Characters, taker:Characters):void;
+  thunderWave(speller:Characters, taker:Characters):void;
+  
 }

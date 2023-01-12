@@ -1,11 +1,13 @@
 h1{
-    font-size: 6rem;
+    font-size: 2rem;
     background: -webkit-linear-gradient(#f20000, #fff068);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation-name: title;
     animation-duration: 4s;
     animation-iteration-count: infinite;
+    text-align: center;
+    margin-top: 200px;
 }
 
 @keyframes title {

@@ -4,6 +4,7 @@ export class Songs {
         let audio = new Audio();
         audio.src = "../../assets/audio/battleTheme.mp3"
         audio.load();
+        audio.loop = true;
         return audio;
       }
       theBraveTheme(){

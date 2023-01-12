@@ -14,6 +14,7 @@ export class Characters {
   private spd:number = 0;
   private abilities:number[] = [0];
   private weakness:number[] = [0];
+  private resistence:number[] = [0];
 
   private ability:AbilityModel[] = [];
 
@@ -32,7 +33,8 @@ export class Characters {
               def:number,
               spd:number,
               abilities:number[],
-              weakness:number[]
+              weakness:number[],
+              resistence:number[]
               ){
 
                 this.id = id;
@@ -45,6 +47,7 @@ export class Characters {
                 this.spd = spd;
                 this.abilities = abilities;
                 this.weakness = weakness;
+                this.resistence = resistence;
 
     this.setAbilitiesModel();
   }
@@ -127,6 +130,12 @@ export class Characters {
   }
   setWeakness(value:number[]):void{
     this.weakness = value;
+  }
+  getReistence():number[]{
+    return this.resistence;
+  }
+  setResistence(value:number[]):void{
+    this.resistence = value;
   }
 
   attack():number{

@@ -11,6 +11,7 @@ import gameConfig from '../../../assets/data/characters.json'
 })
 export class BattleCardComponent implements OnInit,OnDestroy {
 
+
   muted:boolean = false;
 
   @Input()
@@ -23,8 +24,8 @@ export class BattleCardComponent implements OnInit,OnDestroy {
     this.characterSelect.emit(select);
   }
 
-  player = new Player(0,'','',0,0,0,0,0,[0],[0]);
-  enemy = new Enemies(0,'','',0,0,0,0,0,[0],[0]);
+  player = new Player(0,'','',0,0,0,0,0,[0],[0],[0]);
+  enemy = new Enemies(0,'','',0,0,0,0,0,[0],[0],[0]);
 
   battle = new Battle(this.player,this.enemy,0);
 
@@ -33,19 +34,17 @@ export class BattleCardComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.startGame();
-
-    this.battle.battleSong().play();
-
   }
   ngOnDestroy(): void {
     this.battle.audio.pause();
-    console.log("destroied")
+    this.battle.setGameOver(true);
   }
 
   startGame(){
     this.setCharacters();
     this.setBattleConfig();
     this.battle.startGame();
+    this.battle.battleSong().play();
 
     this.player.getInfo();
     this.enemy.getInfo();
@@ -65,7 +64,8 @@ export class BattleCardComponent implements OnInit,OnDestroy {
         player.def,
         player.spd,
         player.abilities,
-        player.weakness
+        player.weakness,
+        player.resistence
       )
       this.enemy = new Enemies(
         enemy.id,
@@ -77,7 +77,8 @@ export class BattleCardComponent implements OnInit,OnDestroy {
         enemy.def,
         enemy.spd,
         enemy.abilities,
-        enemy.weakness
+        enemy.weakness,
+        enemy.resistence
       )
     }
 
@@ -86,6 +87,7 @@ export class BattleCardComponent implements OnInit,OnDestroy {
     this.battle = new Battle(this.player,this.enemy,30);
   }
   backAction():void{
+    this.battle.cursorSong3();
     this.battle.setPlayerSpellCard(false);
   }
   muteMusic(){

@@ -12,7 +12,8 @@ export class Player extends Characters{
     def:number,
     spd:number,
     abilities:number[],
-    weakness:number[]
+    weakness:number[],
+    resistence:number[]
     ){
       super(
         id,
@@ -24,7 +25,8 @@ export class Player extends Characters{
         def,
         spd,
         abilities,
-        weakness
+        weakness,
+        resistence
         );
     }
 
