@@ -10,7 +10,7 @@
 
 .battle-card{
   font-size: 0.75rem;
-  margin-bottom: 1rem;
+
 }
 .card{
   margin-bottom: 1rem;
@@ -65,16 +65,17 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 
 }
 .skills button, .painel-skills button{
-  width: 50%;
-  background-color: transparent;
+  width: 100px;
   cursor:  pointer;
   border: none;
   color:#fff;
   font-family: 'Press Start 2P', cursive;
-  padding: 5px;
+  padding: 5px 5px;
+  margin: 5px;
 
 }
 .skills button:hover, .painel-skills button:hover{

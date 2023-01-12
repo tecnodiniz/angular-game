@@ -102,7 +102,7 @@
 
     <div class="painel-skills" *ngIf="battle.getPlayerSpellCard();">
       <div class="skills">
-        <button
+        <button class="btn-8-bit btn-skill"
         *ngFor="let ability of player.getAbilitiesModel()"
         [value]="ability.id"
         (click)="battle.playerSpellClick(ability.id,ability.description)"
@@ -113,7 +113,7 @@
       </div>
 
 
-      <button (click)="backAction()" ><<</button>
+      <button style="background-color: transparent;" (click)="backAction()" ><<</button>
     </div>
 
 
