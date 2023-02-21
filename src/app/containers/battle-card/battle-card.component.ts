@@ -44,7 +44,7 @@ export class BattleCardComponent implements OnInit,OnDestroy {
     this.setCharacters();
     this.setBattleConfig();
     this.battle.startGame();
-    this.battle.battleSong().play();
+  
 
     this.player.getInfo();
     this.enemy.getInfo();

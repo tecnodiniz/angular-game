@@ -24,9 +24,7 @@ import { PlayerInfoComponent } from './components/player-info/player-info.compon
 import { TitleComponent } from './components/title/title.component';
 import { SongComponent } from './components/song/song.component';
 import { StartComponent } from './pages/start/start.component';
-
-
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -55,7 +53,8 @@ import { StartComponent } from './pages/start/start.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
 
   ],
   exports:[

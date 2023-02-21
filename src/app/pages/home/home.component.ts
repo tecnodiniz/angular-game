@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Songs } from 'src/app/class/songs';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy{
-  song = new Songs().theBraveTheme();
-
+  // song = new Songs().theBraveTheme();
 
 
   constructor(){
@@ -17,10 +17,14 @@ export class HomeComponent implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
 
-    this.song.play();
+    // this.song.play();
 
   }
+
   ngOnDestroy(): void {
-    this.song.pause();
+    // this.song.pause();
+  }
+  stopSong(): void {
+    // this.song.pause();
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import { faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -8,6 +10,8 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 })
 export class SongComponent implements OnInit, OnDestroy {
   song = new Audio();
+  faVolumeUp = faVolumeUp;
+  faVolumeMute = faVolumeMute;
   mute:boolean = false;
   ulr:string = "../../../assets/audio/";
   stop:boolean = false;

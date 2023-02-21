@@ -2,10 +2,11 @@
 <!-- <audio controls loop autoplay style="align-self: center;" id="audio">
   <source src="../../../assets/audio/battleTheme.mp3" type="">
 </audio> -->
-<button style="margin-bottom:5px;" (click)="muteMusic()" *ngIf="!muted" >Mute</button>
-<button style="margin-bottom:5px;" (click)="playMusic()" *ngIf="muted">play</button>
+<app-song
+[audio]="'Battle.mp3'"
+></app-song>
 
-  <div class="battle-card" >
+  <div class="battle-card"  >
     <div class="card card__header">
       <div class="title">
         <h2> turn {{battle.getTurn()}} </h2>
@@ -93,28 +94,32 @@
 
     </div>
 
-    <div class="actions" *ngIf="!battle.getPlayerSpellCard()">
-      <button class="btn-8-bit" (click)="battle.playerAtk()" [class.atk]="battle.getIsAtk()">Attack</button>
-      <button class="btn-8-bit" (click)="battle.playerSelectSpell()" [class.skill]="battle.getIsSkill()" >Skill</button>
-      <button class="btn-8-bit" (click)="battle.playerBlock()" [class.block]="battle.getIsBlk()" >Block</button>
-      <button class="btn-8-bit" (click)="battle.endTurn()">Done</button>
-    </div>
-
-    <div class="painel-skills" *ngIf="battle.getPlayerSpellCard();">
-      <div class="skills">
-        <button class="btn-8-bit btn-skill"
-        *ngFor="let ability of player.getAbilitiesModel()"
-        [value]="ability.id"
-        (click)="battle.playerSpellClick(ability.id,ability.description)"
-        title="mp:{{ability.cost}}"
-        >
-        {{ability.name}}</button>
-
+    <div *ngIf="!battle.getGameOver()">
+      <div class="actions" *ngIf="!battle.getPlayerSpellCard()">
+        <button class="btn-8-bit" (click)="battle.playerAtk()" [class.atk]="battle.getIsAtk()">Attack</button>
+        <button class="btn-8-bit" (click)="battle.playerSelectSpell()" [class.skill]="battle.getIsSkill()" >Skill</button>
+        <button class="btn-8-bit" (click)="battle.playerBlock()" [class.block]="battle.getIsBlk()" >Block</button>
+        <button class="btn-8-bit" (click)="battle.endTurn()">Done</button>
       </div>
 
+      <div class="painel-skills" *ngIf="battle.getPlayerSpellCard();">
+        <div class="skills">
+          <button class="btn-8-bit btn-skill"
+          *ngFor="let ability of player.getAbilitiesModel()"
+          [value]="ability.id"
+          (click)="battle.playerSpellClick(ability.id,ability.description)"
+          title="mp:{{ability.cost}}"
+          >
+          {{ability.name}}</button>
 
-      <button style="background-color: transparent;" (click)="backAction()" ><<</button>
+        </div>
+
+
+        <button style="background-color: transparent;" (click)="backAction()" ><<</button>
+      </div>
+
     </div>
+
 
 
   </div>
