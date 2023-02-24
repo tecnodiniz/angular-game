@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlayerProfileComponent implements OnInit {
 
-url:string = "/angular-game/assets/images/";
+url:string = "/assets/images/";
 @Input()
 profile:string = '';
 

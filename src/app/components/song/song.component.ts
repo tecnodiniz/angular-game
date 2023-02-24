@@ -13,7 +13,7 @@ export class SongComponent implements OnInit, OnDestroy {
   faVolumeUp = faVolumeUp;
   faVolumeMute = faVolumeMute;
   mute:boolean = false;
-  ulr:string = "../../../assets/audio/";
+  ulr:string = "/assets/audio/";
   stop:boolean = false;
 
   @Input()

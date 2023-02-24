@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class CharacterSelectComponent implements OnInit {
 
-  path:string ="../../../assets/images/";
+  path:string ="/assets/images/";
   @Input()
   characters = [
     {
