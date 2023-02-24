@@ -239,13 +239,13 @@ export class Characters {
   //songs
   hitSong(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/hit11.mp3.flac";
+    audio.src = "/angular-game/assets/audio/UI songs/hit11.mp3.flac";
     audio.load();
     audio.play();
   }
   strongHit(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/hit01.mp3.flac";
+    audio.src = "/angular-game/assets/audio/UI songs/hit01.mp3.flac";
     audio.load();
     audio.play();
   }

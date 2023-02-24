@@ -707,45 +707,45 @@ export class Battle implements Abilities{
   //Songs
   cursorSong(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/Cursor.wav"
+    audio.src = "/angular-game/assets/audio/UI songs/Cursor.wav"
     audio.load();
     audio.play();
   }
   cursorSong2(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/Menu1A.wav"
+    audio.src = "/angular-game/assets/audio/UI songs/Menu1A.wav"
     audio.load();
     audio.play();
   }
   cursorSong3(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/Menu1B.wav"
+    audio.src = "/angular-game/assets/audio/UI songs/Menu1B.wav"
     audio.load();
     audio.play();
   }
   cursorSong4(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/Equip.wav"
+    audio.src = "/angular-game/assets/audio/UI songs/Equip.wav"
     audio.load();
     audio.play();
   }
   errorSong(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/UI songs/Error.wav"
+    audio.src = "/angular-game/assets/audio/UI songs/Error.wav"
     audio.load();
     audio.play();
 
   }
   victorySong(){
     let audio = new Audio();
-    audio.src = "../../assets/audio/win-song.ogg"
+    audio.src = "/angular-game/assets/audio/win-song.ogg"
     audio.load();
     audio.play();
 
   }
   battleSong(){
     this.audio = new Audio();
-    this.audio.src = "../../assets/audio/battleTheme.mp3"
+    this.audio.src = "/angular-game/assets/audio/battleTheme.mp3"
     this.audio.load();
     return this.audio;
   }

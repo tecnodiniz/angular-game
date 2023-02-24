@@ -6,7 +6,7 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./select-player-card.component.css']
 })
 export class SelectPlayerCardComponent implements OnInit {
-  path:string = "../../../assets/images/";
+  path:string = "/angular-game/assets/images/";
   @Input()
   character:string = "whosWhite.png";
   @Input()
