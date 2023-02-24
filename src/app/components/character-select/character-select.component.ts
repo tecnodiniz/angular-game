@@ -31,7 +31,7 @@ export class CharacterSelectComponent implements OnInit {
   }
   playAudioConfirm(){
     let audio = new Audio();
-    audio.src = "../../../assets/audio/UI songs/Cursor.wav";
+    audio.src = "/angular-game/assets/audio/UI songs/Cursor.wav";
     audio.load();
     audio.play();
   }
