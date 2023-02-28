@@ -36,6 +36,7 @@ export class BattleCardComponent implements OnInit,OnDestroy {
     this.startGame();
   }
   ngOnDestroy(): void {
+    
     this.battle.audio.pause();
     this.battle.setGameOver(true);
   }
@@ -44,7 +45,7 @@ export class BattleCardComponent implements OnInit,OnDestroy {
     this.setCharacters();
     this.setBattleConfig();
     this.battle.startGame();
-  
+
 
     this.player.getInfo();
     this.enemy.getInfo();

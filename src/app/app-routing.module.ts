@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path:'how-to',
     component:HowToPlayComponent
+  },
+  {
+    path:'404',
+    component:StartComponent
   }
 ];
 
