@@ -39,6 +39,19 @@
       "abilities":[2,3,4,7,9,10],
       "weakness":[5],
       "resistence":[0]
+    },
+    {
+      "id":4,
+      "name":"Robby",
+      "profile":"black-mage.png",
+      "hp":100,
+      "mp":60,
+      "spd":2,
+      "basic-atk":5,
+      "def":0,
+      "abilities":[6,7,9,12],
+      "weakness":[5],
+      "resistence":[5]
     }
   ],
   "enemies":[
@@ -128,7 +141,7 @@
       "weakness":[11],
       "resistence":[6]
     },
-        {
+    {
       "id":7,
       "name":"Nixx",
       "profile":"Nixx.png",
@@ -141,6 +154,20 @@
       "abilities":[1,2,4,5,12],
       "weakness":[11],
       "resistence":[6]
+    },
+    {
+      "id":8,
+      "name":"Layka",
+      "profile":"Layka.png",
+      "hp":100,
+      "mp":50,
+      "spd":1,
+      "atk":35,
+      "def":3,
+      "actions":[1,2],
+      "abilities":[1,2,4,5,12],
+      "weakness":[9],
+      "resistence":[5]
     }
   ],
   "abilities":[
