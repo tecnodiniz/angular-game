@@ -8,4 +8,6 @@ The Braves is a game based on old scholls RPG Games like Final Fantasy, Pokemon 
 
 Choose one character and try to beat the game without losing. There are ten enemies to fight.
 
+https://tecnodiniz.github.io/angular-game/
+
 Good Luck!
